@@ -24,33 +24,46 @@ def get_sum(event):
 		BMR_sum = (655.1 + (9.563 * Weight) + (1.850 * Height) - (4.676 * Age))
 	BMR_sumEntry.insert(0, BMR_sum)
 
-	# Calculate the TDEE values
+	# Calculate the TDEE value
 	TDEE_sum = round((float(BMR_sum) * float(Exercise_fact)))
 	TDEE_sumEntry.insert(0, TDEE_sum)
 
 # Start the tkinter screen
 root = Tk()
 
+# Set the title
 root.title("BMI / BMR / TDEE Calculator v0.1")
 
+# Create an input field for the persons height
 Label(root, text="Enter Height (in CM): ").grid(row=0, column=0, sticky='W')
 Height_Entry = Entry(root)
 Height_Entry.grid(row=0, column=1)
 
+# Create an input field for the persons weight
 Label(root, text="Enter Weight (in KG): ").grid(row=1, column=0, sticky='W')
 Weight_Entry = Entry(root)
 Weight_Entry.grid(row=1, column=1)
 
+# Create an input field for the persons age
 Label(root, text="Enter age: ").grid(row=2, column=0, sticky='W')
 Age_Entry = Entry(root)
 Age_Entry.grid(row=2, column=1)
 
+'''
+Create an empty variable called m_f
+We use this variable to make a selection based on male/female
+value 1 = male
+value 2 = female
+'''
 m_f = IntVar()
+# Create an radiobutton field to determine the persons sex
 Label(root, text="What is your sex: ").grid(row=3, column=0, sticky='W')
 Radiobutton(root, text="Male", variable=m_f, value=1).grid(row=3, column=1, sticky='W')
 Radiobutton(root, text="Female", variable=m_f, value=2).grid(row=3, column=2, sticky='NW')
 
 Exercise_factor = StringVar(value="1")
+
+# Create some radiobuttons so that the person can tell us how active he is.
 Label(root, text="How active are you?").grid(row=4, column=0, sticky='W')
 Radiobutton(root, text="Sedentary", variable=Exercise_factor, value=1.2).grid(row=5, column=0, sticky='W')
 Radiobutton(root, text="Lightly active", variable=Exercise_factor, value=1.375).grid(row=5, column=1, sticky='W')
@@ -58,10 +71,13 @@ Radiobutton(root, text="Moderately active", variable=Exercise_factor, value=1.55
 Radiobutton(root, text="Very active", variable=Exercise_factor, value=1.725).grid(row=6, column=0, sticky='W')
 Radiobutton(root, text="Extra active", variable=Exercise_factor, value=1.9).grid(row=6, column=1, sticky='W')
 
+# Create a 'submit' button that runs the 'get_sum' class.
 submit_Button = Button(root, text="Calculate BMI and BMR")
 submit_Button.bind("<Button-1>", get_sum)
 submit_Button.grid(row=7, column=1)
 
+
+# Display all the calculated information
 Label(root, text="Your BMI is: ").grid(row=8, column=0, sticky='W')
 BMI_sumEntry = Entry(root)
 BMI_sumEntry.grid(row=8, column=1)
